@@ -1,0 +1,12 @@
+{
+  "/rest": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/payments": {
+    "target": "http://localhost:3001",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

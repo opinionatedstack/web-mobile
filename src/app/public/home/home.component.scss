@@ -1,0 +1,38 @@
+.idle {
+   background-color: lightgrey;
+ }
+
+.success {
+  background-color: lightgreen;
+}
+
+.failure {
+  background-color: pink;
+}
+
+.loading {
+  background-color: yellow;
+}
+
+pre-remove {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+#rest-test-button {
+  margin: 40px;
+}
+
+.comp-logo {
+  width: 150px;
+}
+
+.results-display {
+  height: 150px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
