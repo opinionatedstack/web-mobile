@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CallbackComponent } from './public/callback/callback.component';
 
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileComponent } from './private/profile/profile.component';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 import { Auth0UsersComponent } from './admin/auth0-users/auth0-users.component';
@@ -85,8 +84,7 @@ import { InvoiceHistoryComponent } from './components/payments/invoice-history/i
     MaterialIoModule,
     FlexLayoutModule,
     HttpClientModule,
-    // NgbModule,
-    // FontAwesomeModule,
+    NgbModule,
     FormsModule
   ],
   providers: [],
