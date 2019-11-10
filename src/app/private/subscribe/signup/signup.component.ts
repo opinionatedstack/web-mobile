@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
               private subMgmt: SubscriptionMgmtService) { }
 
   ngOnInit() {
-    this.subMgmt.checkUsersSubscriptions();
+    //this.subMgmt.checkUsersSubscriptions();
     this.getAgreements();
     this.getProductInfo();
 
@@ -129,7 +129,8 @@ export class SignupComponent implements OnInit {
           ...this.tosFormGroup.value,
           ...this.productFormGroup.value,
           createDate: new Date(),
-          stripe_customer_id: auth0AppMetadata.stripe_customer_id
+          stripe_customer_id: auth0AppMetadata.stripe_customer_id,
+          auth0UserSub: user.sub
         };
 
         this.stripe.createSession(payment)

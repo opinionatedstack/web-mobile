@@ -78,46 +78,48 @@
         <mat-step [stepControl]="productFormGroup">
           <form [formGroup]="productFormGroup">
             <ng-template matStepLabel>Product</ng-template>
+            <div *ngIf="productData">
 
-            <mat-radio-group aria-label="Select an option" formControlName="plan_id">
+              <mat-radio-group aria-label="Select an option" formControlName="plan_id">
 
-              <!--
-              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
-                <mat-card class="stepper-selection-cards" fxFlex="33%" fxFlex.lt-sm="95%" >
-                  <mat-card-title>One Day Purchase</mat-card-title>
+                <!--
+                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
+                  <mat-card class="stepper-selection-cards" fxFlex="33%" fxFlex.lt-sm="95%" >
+                    <mat-card-title>One Day Purchase</mat-card-title>
 
-                  <mat-radio-button value="one-day-purchase">€2.00</mat-radio-button>
-                </mat-card>
-                <mat-card class="stepper-selection-cards" fxFlex="33%" fxFlex.lt-sm="95%" >
-                  <mat-card-title>Daily Subscription</mat-card-title>
+                    <mat-radio-button value="one-day-purchase">€2.00</mat-radio-button>
+                  </mat-card>
+                  <mat-card class="stepper-selection-cards" fxFlex="33%" fxFlex.lt-sm="95%" >
+                    <mat-card-title>Daily Subscription</mat-card-title>
 
-                  <mat-radio-button value="daily-subscription">€1.00 per day</mat-radio-button>
-                </mat-card>
-                <mat-card class="stepper-selection-cards" fxFlex="33%" fxFlex.lt-sm="95%" >
-                  <mat-card-title>Weekly Subscription</mat-card-title>
+                    <mat-radio-button value="daily-subscription">€1.00 per day</mat-radio-button>
+                  </mat-card>
+                  <mat-card class="stepper-selection-cards" fxFlex="33%" fxFlex.lt-sm="95%" >
+                    <mat-card-title>Weekly Subscription</mat-card-title>
 
-                  <mat-radio-button value="weekly-subscription">€5.00 per week</mat-radio-button>
-                </mat-card>
-              </div>
-              -->
+                    <mat-radio-button value="weekly-subscription">€5.00 per week</mat-radio-button>
+                  </mat-card>
+                </div>
+                -->
 
-              <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
-                <mat-card class="stepper-selection-cards" fxFlex="0 0 auto" *ngFor="let product of getDisplayOrderedProducts()" >
-                  <mat-card-title>{{product.name}}</mat-card-title>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
+                  <mat-card class="stepper-selection-cards" fxFlex="0 0 auto" *ngFor="let product of getDisplayOrderedProducts()" >
+                    <mat-card-title>{{product.name}}</mat-card-title>
 
-                  <div fxLayout="column">
-                    <mat-card fxFlex *ngFor="let plan of getDisplayOrderedPlans(product)">
-                      {{plan.nickname}}<br>
-                      <mat-radio-button value="{{plan.id}}">
-                        {{plan.amount/100|currency:plan.currency.toUpperCase():'symbol'}}
-                      </mat-radio-button>
-                    </mat-card>
-                  </div>
+                    <div fxLayout="column">
+                      <mat-card fxFlex *ngFor="let plan of getDisplayOrderedPlans(product)">
+                        {{plan.nickname}}<br>
+                        <mat-radio-button value="{{plan.id}}">
+                          {{plan.amount/100|currency:plan.currency.toUpperCase():'symbol'}}
+                        </mat-radio-button>
+                      </mat-card>
+                    </div>
 
-                </mat-card>
-              </div>
-            </mat-radio-group>
+                  </mat-card>
+                </div>
+              </mat-radio-group>
 
+            </div>
 
             <div fxLayout="row" fxLayoutAlign="end start" class="full-width">
               <button class="stepper-button prev-button" fxFlex="15%" fxFlexAlign="right" mat-raised-button color="primary" matStepperPrevious>Back</button>

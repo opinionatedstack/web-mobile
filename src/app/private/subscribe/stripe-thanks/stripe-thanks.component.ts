@@ -33,12 +33,13 @@ export class StripeThanksComponent implements OnInit {
         console.log('error in getTokenSilently$', e);
       }
 
-
       const auth0AppMetadata: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'app_metadata');
-
-
-      console.log('got auth0 app metadata');
+      console.log('thanks onInit. got auth0 app metadata');
       console.log(JSON.stringify(auth0AppMetadata, null, 4));
+
+      const roles: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'roles');
+      console.log('thanks onInit. got auth0 app roles');
+      console.log(JSON.stringify(roles, null, 4));
 
 
     });
@@ -49,6 +50,7 @@ export class StripeThanksComponent implements OnInit {
     this.stripe.getSession({sessionId: this.sessionId})
       .subscribe(r => {
         this.session = r;
+        console.log('thanks.session');
         console.log(this.session);
       }, e => {
         this.snackMessage.open('Error getting purchase session', null,{duration:  environment.snackBarDuration, verticalPosition: 'top'});

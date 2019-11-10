@@ -1,1 +1,27 @@
 <p>auth0-roles works!</p>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100%">
+    <mat-card>
+      <mat-card-title>Roles</mat-card-title>
+      <mat-card class="list-mat-card list-header-mat-card">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex="20%">ID</div>
+          <div fxFlex="20%">Role</div>
+          <div fxFlex="50%">Description</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="list-mat-card" *ngFor="let role of roles">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex="20%">{{role.id}}</div>
+          <div fxFlex="20%">{{role.name}}</div>
+          <div fxFlex="50%">{{role.description}}</div>
+        </div>
+      </mat-card>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="roles">
+  <pre>{{roles|json}}</pre>
+</div>
