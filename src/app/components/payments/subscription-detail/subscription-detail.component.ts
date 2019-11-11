@@ -42,19 +42,26 @@ export class SubscriptionDetailComponent implements OnInit {
         this.snackMessage.open('Subscription cancelled', 'x',{verticalPosition: 'top'});
         this.loadData();
 
-        try {
-          this.auth.getTokenSilently$({ ignoreCache: true });
-        } catch (e) {
-          console.log('error in getTokenSilently$', e);
-        }
+        setTimeout ( async () => {
+          try {
+            console.log('post-cancel GetTokenSilently$');
+            this.auth.getTokenSilently$({ ignoreCache: true });
+          } catch (e) {
+            console.log('error in getTokenSilently$', e);
+          }
 
-        const auth0AppMetadata: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'app_metadata');
-        console.log('thanks onInit. got auth0 app metadata');
-        console.log(JSON.stringify(auth0AppMetadata, null, 4));
+          setTimeout( async() => {
+            const auth0AppMetadata: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'app_metadata');
+            console.log('thanks onInit. got auth0 app metadata');
+            console.log(JSON.stringify(auth0AppMetadata, null, 4));
 
-        const roles: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'roles');
-        console.log('thanks onInit. got auth0 app roles');
-        console.log(JSON.stringify(roles, null, 4));
+            const roles: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'roles');
+            console.log('thanks onInit. got auth0 app roles');
+            console.log(JSON.stringify(roles, null, 4));
+          }, 5000);
+
+        }, 5000);
+
       }, e => {
         this.snackMessage.open('Error getting subscription', 'x',{verticalPosition: 'top'});
       });

@@ -42,6 +42,8 @@ import { PlanDetailComponent } from './components/payments/plan-detail/plan-deta
 import { ProductDetailComponent } from './components/payments/product-detail/product-detail.component';
 import { CustomerDetailComponent } from './components/payments/customer-detail/customer-detail.component';
 import { InvoiceHistoryComponent } from './components/payments/invoice-history/invoice-history.component';
+import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
+import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { InvoiceHistoryComponent } from './components/payments/invoice-history/i
     ProductDetailComponent,
     CustomerDetailComponent,
     InvoiceHistoryComponent,
+    BasicSubscriberComponent,
+    PremiumSubscriberComponent,
   ],
   imports: [
     BrowserModule,

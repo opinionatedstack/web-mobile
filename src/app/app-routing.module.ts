@@ -19,6 +19,8 @@ import { StripeThanksComponent } from './private/subscribe/stripe-thanks/stripe-
 import { StripeCancelComponent } from './private/subscribe/stripe-cancel/stripe-cancel.component';
 import { AccountComponent } from './private/account/account.component';
 import { Auth0RolesComponent } from './admin/auth0-roles/auth0-roles.component';
+import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
+import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/public/home', pathMatch: 'full' },
@@ -35,6 +37,8 @@ const routes: Routes = [
     path: 'private', component: PrivateRootComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      { path: 'basicsub', component: BasicSubscriberComponent },
+      { path: 'premsub', component: PremiumSubscriberComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'account', component: AccountComponent },
       { path: 'dashboard', component: DashboardComponent },
