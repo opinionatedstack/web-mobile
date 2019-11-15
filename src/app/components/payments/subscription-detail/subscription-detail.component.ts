@@ -42,6 +42,9 @@ export class SubscriptionDetailComponent implements OnInit {
         this.snackMessage.open('Subscription cancelled', 'x',{verticalPosition: 'top'});
         this.loadData();
 
+        setTimeout( () => { window.location.reload(); }, 4000);
+
+/*
         setTimeout ( async () => {
           try {
             console.log('post-cancel GetTokenSilently$');
@@ -49,6 +52,8 @@ export class SubscriptionDetailComponent implements OnInit {
           } catch (e) {
             console.log('error in getTokenSilently$', e);
           }
+
+          setTimeout ( async() => { this.auth.decodeToken(); }, 2000);
 
           setTimeout( async() => {
             const auth0AppMetadata: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'app_metadata');
@@ -61,6 +66,8 @@ export class SubscriptionDetailComponent implements OnInit {
           }, 5000);
 
         }, 5000);
+        */
+
 
       }, e => {
         this.snackMessage.open('Error getting subscription', 'x',{verticalPosition: 'top'});
