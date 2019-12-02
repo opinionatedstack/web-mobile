@@ -28,15 +28,19 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "src/opstack-styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              // "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              // "src/opstack-styles.scss",
+              // "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "index": { //prod index replacement
+                "input": "src/index.prod.html",
+                "output": "index.html"
+              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -46,7 +50,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
+              "extractCss": false,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -64,6 +68,18 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ],
+              "index": { //qa index replacement
+                "input": "src/index.qa.html",
+                "output": "index.html"
+              }
             }
           }
         },
@@ -97,10 +113,10 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "src/opstack-styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              // "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              // "src/opstack-styles.scss",
+              // "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           }
