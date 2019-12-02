@@ -172,7 +172,7 @@ export class AuthService {
     return this.userProfile$.pipe (
       map ( (user) => {
         if (!user) {
-          console.log('auth.inRole returns false');
+          // console.log('auth.inRole returns false');
           return false;
         }
 
@@ -184,7 +184,7 @@ export class AuthService {
           }
         }
 
-        console.log('auth.inRole returns false');
+        // console.log('auth.inRole returns false');
         return false;
       })
     );
@@ -198,8 +198,13 @@ export class AuthService {
     return new Promise ( async(resolve, reject) => {
       try {
         const token = await this.getToken();
+        //console.log('token');
+        //console.log(token);
 
         const decodedToken = this.jwtHelper.decodeToken(token);
+        //console.log('decodedToken');
+        console.log(decodedToken);
+
         const expirationDate = this.jwtHelper.getTokenExpirationDate(token);
         const isExpired = this.jwtHelper.isTokenExpired(token);
 
