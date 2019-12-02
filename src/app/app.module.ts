@@ -44,6 +44,7 @@ import { CustomerDetailComponent } from './components/payments/customer-detail/c
 import { InvoiceHistoryComponent } from './components/payments/invoice-history/invoice-history.component';
 import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
+import { BillingComponent } from './private/billing/billing.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { PremiumSubscriberComponent } from './private/premium-subscriber/premium
     InvoiceHistoryComponent,
     BasicSubscriberComponent,
     PremiumSubscriberComponent,
+    BillingComponent,
   ],
   imports: [
     BrowserModule,
