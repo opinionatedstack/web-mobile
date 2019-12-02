@@ -21,6 +21,7 @@ import { AccountComponent } from './private/account/account.component';
 import { Auth0RolesComponent } from './admin/auth0-roles/auth0-roles.component';
 import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
+import {BillingComponent} from './private/billing/billing.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/public/home', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const routes: Routes = [
       { path: 'premsub', component: PremiumSubscriberComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'account', component: AccountComponent },
+      { path: 'billing', component: BillingComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'signupthanks', component: StripeThanksComponent },
