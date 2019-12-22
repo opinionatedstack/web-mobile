@@ -15,8 +15,8 @@ export class SubscriptionMgmtService {
 
   async checkUsersSubscriptions () {
 
-    const appMetadata: any = await this.auth.getTokenClaim('http://opinionatedstack.com/app_metadata');
-    const roles: any = await this.auth.getTokenClaim('http://opinionatedstack.com/roles');
+    const appMetadata: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'app_metadata');
+    const roles: any = await this.auth.getTokenClaim(environment.auth0.namespace + 'roles');
 
     console.log(JSON.stringify(appMetadata, null, 4));
 

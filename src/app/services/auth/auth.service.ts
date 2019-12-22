@@ -176,7 +176,7 @@ export class AuthService {
           return false;
         }
 
-        const roles = user['http://opinionatedstack.com/roles'];
+        const roles = user[environment.auth0.namespace + 'roles'];
 
         for (let i = 0; i < targetGroupList.length; i++) {
           if (roles.includes(targetGroupList[i])) {
