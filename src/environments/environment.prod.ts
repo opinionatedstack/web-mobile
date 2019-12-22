@@ -13,7 +13,7 @@ export const environment = {
     domain: "opin-stack-demo.auth0.com",
     apiIdentifier: 'https://test.opinionatedstack.com',
     callbackUri: 'https://demo.opinionatedstack.com/public/callback',
-    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write',
+    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write logs:read',
     namespace: 'http://opinionatedstack.com/'
   },
 
