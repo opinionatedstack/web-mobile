@@ -21,7 +21,8 @@ import { AccountComponent } from './private/account/account.component';
 import { Auth0RolesComponent } from './admin/auth0-roles/auth0-roles.component';
 import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
-import {BillingComponent} from './private/billing/billing.component';
+import { BillingComponent } from './private/billing/billing.component';
+import { LogsComponent } from './admin/logs/logs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/public/home', pathMatch: 'full' },
@@ -54,7 +55,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full'},
       { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin']} },
-      { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} }
+      { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} },
+      { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin']} }
     ]
   }
 ];
