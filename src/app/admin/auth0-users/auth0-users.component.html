@@ -1,33 +1,78 @@
-<div fxLayout="row" fxLayoutAlign="center">
-  <div fxFlex="100%">
+<div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="center">
+  <div fxFlex="1 1 33%" fxFlex.lt-lg="0 0 100%">
     <mat-card>
       <mat-card-title>Users</mat-card-title>
 
-      <mat-card class="list-mat-card list-header-mat-card">
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="20%">Email</div>
-          <div fxFlex="20%">Last Login</div>
-          <div fxFlex="10%">Email is Verified</div>
-          <div fxFlex="10%">Admin Block</div>
-          <div fxFlex="20%">Number of Logins</div>
-        </div>
-      </mat-card>
+      <div fxHide fxShow.lt-lg>
+        <mat-card class="list-mat-card list-header-mat-card">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="30%">Email</div>
+            <div fxFlex="30%">Last Login</div>
+            <div fxFlex="7%">Email Verified</div>
+            <div fxFlex="7%">Admin Block</div>
+            <div fxFlex="10%"># of Logins</div>
+          </div>
+        </mat-card>
 
-      <mat-card class="list-mat-card" *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="isSelectedItem(user)">
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="20%">{{user.email}}</div>
-          <div fxFlex="20%">{{user.last_login|date:'medium'}}</div>
-          <div fxFlex="10%">
-            <div *ngIf="user.email_verified"><mat-icon>check_circle_outline</mat-icon></div>
-            <div *ngIf="!user.email_verified"><mat-icon>highlight_off</mat-icon></div>
+        <mat-card class="list-mat-card" *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="isSelectedItem(user)">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="30%" class="text-truncate">{{user.email}}</div>
+            <div fxFlex="30%" class="text-truncate">{{user.last_login|date:'medium'}}</div>
+            <div fxFlex="7%">
+              <div *ngIf="user.email_verified"><mat-icon>check_circle_outline</mat-icon></div>
+              <div *ngIf="!user.email_verified"><mat-icon>highlight_off</mat-icon></div>
+            </div>
+            <div fxFlex="7%">
+              <div *ngIf="user.blocked"><mat-icon>highlight_off</mat-icon></div>
+              <div *ngIf="!user.blocked"></div>
+            </div>
+            <div fxFlex="10%">{{user.logins_count}}</div>
           </div>
-          <div fxFlex="10%">
-            <div *ngIf="user.blocked"><mat-icon>highlight_off</mat-icon></div>
-            <div *ngIf="!user.blocked"></div>
+        </mat-card>
+      </div>
+
+      <div fxHide.lt-lg>
+        <mat-card class="list-mat-card" *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="isSelectedItem(user)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Email:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{user.email}}</div>
+              </div>
+            </div>
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Last Login:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{user.last_login|date:'medium'}}</div>
+              </div>
+            </div>
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Email Verified:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data">
+                  <div *ngIf="user.email_verified"><mat-icon>check_circle_outline</mat-icon></div>
+                  <div *ngIf="!user.email_verified"><mat-icon>highlight_off</mat-icon></div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Admin Block:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data">
+                  <div *ngIf="user.blocked"><mat-icon>highlight_off</mat-icon></div>
+                  <div *ngIf="!user.blocked"></div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Login Count:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data">{{user.logins_count}}</div>
+              </div>
+            </div>
           </div>
-          <div fxFlex="20%">{{user.logins_count}}</div>
-        </div>
-      </mat-card>
+        </mat-card>
+      </div>
 
       <mat-card *ngIf="usersLoading" fxLayout="row" fxLayoutAlign="center" >
         <div fxLayout="row" fxLayoutAlign="center">
@@ -45,106 +90,6 @@
         </mat-card>
       </div>
 
-
-      <mat-card *ngIf="selectedUserLoading" fxLayout="row" fxLayoutAlign="center" >
-        <div fxLayout="row" fxLayoutAlign="center">
-          <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
-        </div>
-      </mat-card>
-
-      <mat-card *ngIf="selectedUser">
-        <mat-card-title>Selected User: {{selectedUser.email}}</mat-card-title>
-
-        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
-          <div fxFlex="45%">
-            <div fxLayout="column">
-
-              <div fxFlex="95%">
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Name" [(ngModel)]="selectedUser.name" >
-                </mat-form-field>
-
-              </div>
-
-              <div fxFlex="95%">
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Email</mat-label>
-                  <input matInput placeholder="Email" [(ngModel)]="selectedUser.email">
-                </mat-form-field>
-
-              </div>
-
-              <div fxFlex="95%">
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Given Name</mat-label>
-                  <input matInput placeholder="Email" [(ngModel)]="selectedUser.given_name">
-                </mat-form-field>
-
-              </div>
-
-              <div fxFlex="95%">
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Family Name</mat-label>
-                  <input matInput placeholder="Email" [(ngModel)]="selectedUser.family_name">
-                </mat-form-field>
-
-              </div>
-
-              <div fxFlex="95%">
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Nickname</mat-label>
-                  <input matInput placeholder="Email" [(ngModel)]="selectedUser.nickname">
-                </mat-form-field>
-
-              </div>
-
-            </div>
-
-          </div>
-          <div fxFlex="45%">
-            <div fxLayout="column">
-              <div fxFlex="95%">
-                <mat-slide-toggle [(ngModel)]="selectedUser.blocked">Administrative Block</mat-slide-toggle>
-              </div>
-              <div fxFlex="95%">
-                <mat-slide-toggle [(ngModel)]="selectedUser.email_verified">Email Verified</mat-slide-toggle>
-              </div>
-              <div fxFlex="95%">
-                Created: {{selectedUser.created_at|date:"medium"}}
-              </div>
-              <div fxFlex="95%">
-                Updated: {{selectedUser.updated_at|date:"medium"}}
-              </div>
-              <div fxFlex="95%">
-                Last Login: {{selectedUser.last_login|date:"medium"}}
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="updateSelectedUser()">Save</button>
-        </mat-card-actions>
-
-        <mat-card>
-          <mat-card-subtitle>Payment Sessions History</mat-card-subtitle>
-          <div *ngIf="selectedUser.app_metadata">
-            <div *ngIf="selectedUser.app_metadata.stripe_customer_id">
-              <app-customer-detail [stripeCustomerId]="selectedUser.app_metadata.stripe_customer_id"></app-customer-detail>
-            </div>
-          </div>
-          <div *ngIf="!selectedUser.app_metadata || !selectedUser.app_metadata.stripe_customer_id">
-            No purchases made
-          </div>
-        </mat-card>
-      </mat-card>
     </mat-card>
 
     <!--
@@ -153,6 +98,107 @@
       <pre>{{selectedUser|json:"pretty"}}</pre>
     </mat-card>
     -->
+  </div>
+  <div fxFlex>
+    <mat-card *ngIf="selectedUserLoading" fxLayout="row" fxLayoutAlign="center" >
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+      </div>
+    </mat-card>
+
+    <mat-card *ngIf="selectedUser">
+      <mat-card-title>Selected User: {{selectedUser.email}}</mat-card-title>
+
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
+        <div fxFlex="45%">
+          <div fxLayout="column">
+
+            <div fxFlex="95%">
+
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name" [(ngModel)]="selectedUser.name" >
+              </mat-form-field>
+
+            </div>
+
+            <div fxFlex="95%">
+
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" [(ngModel)]="selectedUser.email">
+              </mat-form-field>
+
+            </div>
+
+            <div fxFlex="95%">
+
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Given Name</mat-label>
+                <input matInput placeholder="Email" [(ngModel)]="selectedUser.given_name">
+              </mat-form-field>
+
+            </div>
+
+            <div fxFlex="95%">
+
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Family Name</mat-label>
+                <input matInput placeholder="Email" [(ngModel)]="selectedUser.family_name">
+              </mat-form-field>
+
+            </div>
+
+            <div fxFlex="95%">
+
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Nickname</mat-label>
+                <input matInput placeholder="Email" [(ngModel)]="selectedUser.nickname">
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div fxFlex="45%">
+          <div fxLayout="column">
+            <div fxFlex="95%">
+              <mat-slide-toggle [(ngModel)]="selectedUser.blocked">Administrative Block</mat-slide-toggle>
+            </div>
+            <div fxFlex="95%">
+              <mat-slide-toggle [(ngModel)]="selectedUser.email_verified">Email Verified</mat-slide-toggle>
+            </div>
+            <div fxFlex="95%">
+              Created: {{selectedUser.created_at|date:"medium"}}
+            </div>
+            <div fxFlex="95%">
+              Updated: {{selectedUser.updated_at|date:"medium"}}
+            </div>
+            <div fxFlex="95%">
+              Last Login: {{selectedUser.last_login|date:"medium"}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="updateSelectedUser()">Save</button>
+      </mat-card-actions>
+
+      <mat-card>
+        <mat-card-subtitle>Payment Sessions History</mat-card-subtitle>
+        <div *ngIf="selectedUser.app_metadata">
+          <div *ngIf="selectedUser.app_metadata.stripe_customer_id">
+            <app-customer-detail [stripeCustomerId]="selectedUser.app_metadata.stripe_customer_id"></app-customer-detail>
+          </div>
+        </div>
+        <div *ngIf="!selectedUser.app_metadata || !selectedUser.app_metadata.stripe_customer_id">
+          No purchases made
+        </div>
+      </mat-card>
+    </mat-card>
   </div>
 </div>
 
