@@ -22,7 +22,11 @@ export class LogsComponent implements OnInit {
 
   levels = [
     'error',
-    'info'
+    'warn',
+    'info',
+    'verbose',
+    'debug',
+    'silly'
   ];
 
   constructor(private restService: RestService) { }
