@@ -1,6 +1,6 @@
 
-<div fxLayout="row" fxLayoutAlign="center">
-  <div fxFlex="100%">
+<div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="center">
+  <div fxFlex="1 1 33%" fxFlex.lt-lg="0 0 100%">
     <mat-card>
       <mat-card-title>
         Logs
@@ -16,23 +16,51 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-card class="list-mat-card list-header-mat-card">
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="7%">Level</div>
-          <div fxFlex="15%">Timestamp</div>
-          <div fxFlex="20%">Description</div>
-          <div fxFlex="40%">Data</div>
-        </div>
-      </mat-card>
+      <div fxHide fxShow.lt-lg>
+        <mat-card class="list-mat-card list-header-mat-card">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="7%">Level</div>
+            <div fxFlex="15%">Timestamp</div>
+            <div fxFlex="20%">Description</div>
+            <div fxFlex="40%">Data</div>
+          </div>
+        </mat-card>
 
-      <mat-card class="list-mat-card" *ngFor="let log of logs" (click)="selectLog(log)">
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="7%">{{log.level}}</div>
-          <div fxFlex="15%">{{log.timestamp}}</div>
-          <div fxFlex="20%" class="no-overflow">{{log.message}}</div>
-          <div fxFlex="40%"class="no-overflow">{{log.meta|json}}</div>
-        </div>
-      </mat-card>
+        <mat-card class="list-mat-card" *ngFor="let log of logs" (click)="selectLog(log)" [class.selected]="isSelectedItem(log)">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="7%" class="user-data text-truncate">{{log.level}}</div>
+            <div fxFlex="15%" class="user-data text-truncate">{{log.timestamp}}</div>
+            <div fxFlex="20%" class="user-data text-truncate">{{log.message}}</div>
+            <div fxFlex="40%" class="user-data text-truncate">{{log.meta|json}}</div>
+          </div>
+        </mat-card>
+      </div>
+      <div fxHide.lt-lg>
+        <mat-card class="list-mat-card" *ngFor="let log of logs" (click)="selectLog(log)" [class.selected]="isSelectedItem(log)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Log Level:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{log.level}}</div>
+              </div>
+            </div>
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Timestamp:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{log.timestamp}}</div>
+              </div>
+            </div>
+            <div fxFlex="100%" class="no-overflow">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end" class="text-truncate">Error Message:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{log.message}}</div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+
 
       <mat-card *ngIf="loading" fxLayout="row" fxLayoutAlign="center" >
         <div fxLayout="row" fxLayoutAlign="center">
@@ -50,15 +78,22 @@
         </mat-card>
       </div>
     </mat-card>
+
+  </div>
+  <div fxFlex>
     <mat-card *ngIf="selectedLog">
       <mat-card-title>Selected Log</mat-card-title>
       <div>Level: <strong>{{selectedLog.level}}</strong></div>
       <div>Date: <strong>{{selectedLog.timestamp|date:'long'}}</strong></div>
       <div>Description: <strong>{{selectedLog.message}}</strong></div>
       <div *ngIf="selectedLog.meta">
-        <pre>{{selectedLog.meta|json}}</pre>
+        <div class="section-header">Error Object:</div>
+        <!--<pre class="prettyprint linenums:1 lang-js"><code class="language-js">module.exports = {{ test: () => {{ console.log(); }} }};</code></pre>-->
+        <pre class="prettyprint linenums:1 lang-js"><code class="language-js">{{selectedLog.meta|json}}</code></pre>
+
         <div *ngIf="selectedLog.meta.stack">
-          <pre>{{selectedLog.meta.stack}}</pre>
+          <div class="section-header">Call Stack:</div>
+          <pre class="prettyprint">{{selectedLog.meta.stack}}</pre>
         </div>
       </div>
     </mat-card>

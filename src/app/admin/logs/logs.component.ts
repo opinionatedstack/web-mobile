@@ -63,4 +63,8 @@ export class LogsComponent implements OnInit {
   selectLog(log:any) {
     this.selectedLog = log;
   }
+
+  isSelectedItem(item) {
+    return (!this.selectedLog || this.selectedLog._id !== item._id) ? false : true;
+  }
 }
