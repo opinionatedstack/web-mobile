@@ -14,6 +14,7 @@ export class Auth0UsersComponent implements OnInit {
 
   users: any[];
   selectedUser: any;
+  searchEmail: string;
 
   usersLoading: boolean = false;
   selectedUserLoading: boolean = false;
@@ -32,7 +33,9 @@ export class Auth0UsersComponent implements OnInit {
 
   loadData() {
     this.usersLoading = true;
-    const params = { pageIndex: this.pageIndex, pageSize: this.pageSize, searchTerms: { email: null }};
+    const params = { pageIndex: this.pageIndex, pageSize: this.pageSize, searchTerms: {
+      email: ( (this.searchEmail && this.searchEmail.length > 0 ) ? this.searchEmail : null)
+    }};
 
     this.rest.adminGetUsers(params)
       .pipe(
