@@ -48,6 +48,8 @@ import { LogsComponent } from './admin/logs/logs.component';
 import { TextFieldComponent } from './components/display-fields/text-field/text-field.component';
 import { DateDisplayComponent } from './components/display-fields/date-display/date-display.component';
 import { BooleanDisplayComponent } from './components/display-fields/boolean-display/boolean-display.component';
+import { TextAreaDisplayComponent } from './components/display-fields/text-area-display/text-area-display.component';
+import { TextFieldDisplayComponent } from './components/display-fields/text-field-display/text-field-display.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { BooleanDisplayComponent } from './components/display-fields/boolean-dis
     TextFieldComponent,
     DateDisplayComponent,
     BooleanDisplayComponent,
+    TextAreaDisplayComponent,
+    TextFieldDisplayComponent,
   ],
   imports: [
     BrowserModule,
