@@ -45,7 +45,6 @@ import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subsc
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
 import { BillingComponent } from './private/billing/billing.component';
 import { LogsComponent } from './admin/logs/logs.component';
-import { TextFieldComponent } from './components/display-fields/text-field/text-field.component';
 import { DateDisplayComponent } from './components/display-fields/date-display/date-display.component';
 import { BooleanDisplayComponent } from './components/display-fields/boolean-display/boolean-display.component';
 import { TextAreaDisplayComponent } from './components/display-fields/text-area-display/text-area-display.component';
@@ -87,7 +86,6 @@ import { TextFieldDisplayComponent } from './components/display-fields/text-fiel
     PremiumSubscriberComponent,
     BillingComponent,
     LogsComponent,
-    TextFieldComponent,
     DateDisplayComponent,
     BooleanDisplayComponent,
     TextAreaDisplayComponent,
