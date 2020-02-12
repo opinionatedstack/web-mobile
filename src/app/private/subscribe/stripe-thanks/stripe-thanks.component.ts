@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StripePaymentsService } from '../../../services/stripe-payments/stripe-payments.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
 import {AuthService} from '../../../services/auth/auth.service';
 

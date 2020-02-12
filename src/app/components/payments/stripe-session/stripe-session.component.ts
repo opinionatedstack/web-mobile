@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StripePaymentsService } from '../../../services/stripe-payments/stripe-payments.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
