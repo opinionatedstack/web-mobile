@@ -9,8 +9,8 @@ export const environment = {
   contactUsEmail: 'info@example.com',
 
   auth0: {
-    clientID: "YooMEqWTh4fd1XfQhUVBdhLxGxkFB19F",
-    domain: "opin-stack-demo.auth0.com",
+    clientID: 'YooMEqWTh4fd1XfQhUVBdhLxGxkFB19F',
+    domain: 'opin-stack-demo.auth0.com',
     apiIdentifier: 'https://test.opinionatedstack.com',
     callbackUri: 'http://localhost:4200/public/callback',
     requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write logs:read',
