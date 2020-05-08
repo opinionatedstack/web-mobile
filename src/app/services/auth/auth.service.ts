@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 
 import { JwtHelperService } from "@auth0/angular-jwt";
 
+
+// Based on following, updated 2020-05-04:
+// https://auth0.com/docs/quickstart/spa/angular2/01-login#add-the-authentication-service
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +27,7 @@ export class AuthService {
       domain: environment.auth0.domain,
       client_id: environment.auth0.clientID,
       redirect_uri: environment.auth0.callbackUri,
+      // redirect_uri: `${window.location.origin}`
       audience: environment.auth0.apiIdentifier,
       scope: environment.auth0.requestedScopes
     })
@@ -37,35 +42,47 @@ export class AuthService {
   // from: Convert that resulting promise into an observable
   isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-    tap(res => this.loggedIn = res)
+    tap(res => {
+      this.loggedIn = res;
+    })
   );
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );
 
   // Create subject and public observable of user profile data
-  userProfileSubject$ = new BehaviorSubject<any>(null);
+  private userProfileSubject$ = new BehaviorSubject<any>(null);
   userProfile$ = this.userProfileSubject$.asObservable();
 
   // Create a local property for login status
   loggedIn: boolean = null;
   userId: any = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    // Added 2020-05-04 from https://auth0.com/docs/quickstart/spa/angular2/01-login#add-the-authentication-service
+
+    // On initial load, check authentication state with authorization server
+    // Set up local auth streams if user is already authenticated
+    this.localAuthSetup();
+    // Handle redirect from Auth0 login
+    this.handleAuthCallback();
+  }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
-      tap(user => { this.userProfileSubject$.next(user); })
+      tap(user => {
+        this.userProfileSubject$.next(user);
+        this.userId = user.sub;
+      })
     );
   }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#gettokensilently
   getTokenSilently$(options?): Observable<string> {
-    console.log('in getTokenSilently$');
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
     );
@@ -85,6 +102,8 @@ export class AuthService {
         return of(loggedIn);
       })
     );
+    checkAuth$.subscribe();
+    /*
     checkAuth$.subscribe((response: any | { [key: string]: any } | boolean) => {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
@@ -93,6 +112,7 @@ export class AuthService {
         this.userId = response.sub;
       }
     });
+    */
   }
 
   login(redirectPath: string = '/') {
@@ -102,6 +122,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
       client.loginWithRedirect({
+        // redirect_uri: `${window.location.origin}`,
         redirect_uri: environment.auth0.callbackUri,
         appState: { target: redirectPath },
         // scope: environment.auth0.requestedScopes,
@@ -112,34 +133,39 @@ export class AuthService {
   }
 
   handleAuthCallback() {
-    // Only the callback component should call this method
     // Call when app reloads after user logs in with Auth0
-    let targetRoute: string; // Path to redirect to after login processsed
-    const authComplete$ = this.handleRedirectCallback$.pipe(
-      tap(cbRes => {
-        // Get and set target redirect route from callback results
-        targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
-      }),
-      concatMap(() => {
-        // Redirect callback complete; get user and login status
-        return combineLatest(
-          this.getUser$(),
-          this.isAuthenticated$
-        );
-      })
-    );
-    // Subscribe to authentication completion observable
-    // Response will be an array of user, token, and login status
-    authComplete$.subscribe(([user, loggedIn]) => {
-      // Redirect to target route after callback processing
-      this.router.navigate([targetRoute]);
-    }, e => {
-      console.log('Login Error2:', e);
-      let errorReasonCode = 'unknown';
-      if (e.error_description === 'user is blocked') { errorReasonCode = 'admin_block'; }
+    const params = window.location.search;
+    if (params.includes('code=') && params.includes('state=')) {
+      let targetRoute: string; // Path to redirect to after login processsed
+      const authComplete$ = this.handleRedirectCallback$.pipe(
+        // Have client, now call method to handle auth callback redirect
+        tap(cbRes => {
+          // Get and set target redirect route from callback results
+          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+        }),
+        concatMap(() => {
+          // Redirect callback complete; get user and login status
+          return combineLatest([
+            this.getUser$(),
+            this.isAuthenticated$
+          ]);
+        })
+      );
+      // Subscribe to authentication completion observable
+      // Response will be an array of user and login status
+      authComplete$.subscribe(([user, loggedIn]) => {
+        // Redirect to target route after callback processing
+        this.router.navigate([targetRoute]);
+      }, e => {
+        console.log('Login Error2:', e);
+        let errorReasonCode = 'unknown';
+        if (e.error_description === 'user is blocked') {
+          errorReasonCode = 'admin_block';
+        }
 
-      this.router.navigate(['/public/loginerror', errorReasonCode]);
-    });
+        this.router.navigate(['/public/loginerror', errorReasonCode]);
+      });
+    }
   }
 
   logout() {
@@ -148,28 +174,32 @@ export class AuthService {
       // Call method to log out
       client.logout({
         client_id: environment.auth0.clientID,
-        returnTo: window.location.origin
+        returnTo: `${window.location.origin}`
       });
     });
   }
 
   async inRoleNotObservable(targetGroupList: string[]) {
-    const roles: any = await this.getTokenClaim(environment.auth0.namespace + 'roles');
-    if (!roles) {
+    try {
+      const roles: any = await this.getTokenClaim(environment.auth0.namespace + 'roles');
+      if (!roles) {
 
-      console.log('auth.inRoleNotOb returns false, no roles');
+        console.log('auth.inRoleNotOb returns false, no roles');
+        return false;
+      }
+
+      for (let i = 0; i < targetGroupList.length; i++) {
+        if (roles.includes(targetGroupList[i])) {
+          console.log('auth.inRoleNotOb returns true');
+          return true;
+        }
+      }
+
+      console.log('auth.inRoleNotOb returns false');
+      return false;
+    } catch (e) {
       return false;
     }
-
-    for (let i = 0; i < targetGroupList.length; i++) {
-      if (roles.includes(targetGroupList[i])) {
-        console.log('auth.inRoleNotOb returns true');
-        return true;
-      }
-    }
-
-    console.log('auth.inRoleNotOb returns false');
-    return false;
   }
 
   public inRole(targetGroupList: string[]): Observable<boolean> {
