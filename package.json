@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "bp-prod": "ng build --prod && docker build -t opinionatedstack/web-angular:latest -f Dockerfile.prod . && docker push opinionatedstack/web-angular:latest && say done",
+    "bp-qa": "ng build --prod && docker build -t opinionatedstack/web-angular:latest-qa -f Dockerfile.qa . && docker push opinionatedstack/web-angular:latest-qa && say done"
   },
   "private": true,
   "dependencies": {
