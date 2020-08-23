@@ -27,7 +27,7 @@
     "@angular/router": "^9.1.5",
     "@auth0/angular-jwt": "^3.0.1",
     "@auth0/auth0-spa-js": "^1.8.1",
-    "@ng-bootstrap/ng-bootstrap": "^5.3.1",
+    "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.4.1",
     "rxjs": "^6.5.5",
     "tslib": "^1.11.2",
