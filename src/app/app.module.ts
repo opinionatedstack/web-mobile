@@ -104,9 +104,6 @@ import { BrandedSpinnerComponent } from './components/branded-spinner/branded-sp
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    LoginRequiredDialogComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
