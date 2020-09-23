@@ -2,6 +2,11 @@
   "name": "web-mobile",
   "version": "0.0.0",
   "scripts": {
+    "android": "nsc debug android --no-hmr",
+    "ios": "nsc debug ios --no-hmr",
+    "androidRun": "ns run android --no-hmr",
+    "iosRun": "ns run ios --no-hmr",
+    "mobile": "ns run",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -13,6 +18,11 @@
   },
   "private": true,
   "dependencies": {
+    "@nativescript/angular": "~10.1.0",
+    "@nativescript/core": "~7.0.0",
+    "@nativescript/theme": "~2.5.0",
+    "reflect-metadata": "~0.1.12",
+    "tslib": "^2.0.0",
     "@angular/animations": "^10.1.2",
     "@angular/cdk": "^10.2.2",
     "@angular/common": "^10.1.2",
@@ -30,7 +40,6 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.2",
     "rxjs": "^6.6.3",
-    "tslib": "^2.0.0",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
@@ -38,6 +47,11 @@
     "@angular/cli": "^10.1.2",
     "@angular/compiler-cli": "^10.1.2",
     "@angular/language-service": "^10.1.2",
+    "@nativescript/android": "7.0.0",
+    "@nativescript/ios": "7.0.0",
+    "@nativescript/schematics": "^10.1.0",
+    "@nativescript/tslint-rules": "~0.0.5",
+    "@nativescript/webpack": "~3.0.0",
     "@types/jasmine": "^3.5.14",
     "@types/jasminewd2": "^2.0.3",
     "@types/node": "^12.12.56",
@@ -53,5 +67,6 @@
     "ts-node": "^7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.7"
-  }
+  },
+  "main": "main.tns.js"
 }
