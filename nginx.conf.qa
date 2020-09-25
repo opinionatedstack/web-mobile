@@ -62,7 +62,7 @@ http {
       # uses Google DNS servers
       ssl_stapling on;
       ssl_stapling_verify on;
-      ssl_trusted_certificate /usr/ssl/pub/fullchain.crt;
+      ssl_trusted_certificate /usr/ssl/pub/fullchain.pem;
       resolver 8.8.8.8 8.8.4.4 valid=300s;
       resolver_timeout 5s;
 
