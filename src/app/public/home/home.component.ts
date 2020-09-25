@@ -31,10 +31,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // Used only for display purposes in the demo to say:
     // "Use Postman to call your endpoint at this URL"
-    this.location = window.location.origin;
+    // this.location = window.location.origin;
   }
 
   publicGet() {
+    console.log('publicGet');
     this.publicGetResult = { status: 'loading'};
 
     this.restService.publicGet()
