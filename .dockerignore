@@ -3,3 +3,6 @@
 src
 node_modules
 e2e
+App_Resources
+hooks
+platforms
