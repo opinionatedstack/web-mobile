@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../services/rest/rest.service';
-import { environment } from './../../../environments/environment';
-import {Router} from '@angular/router';
+import { RestService } from '@src/app/services/rest/rest.service';
+import { environment } from '@src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,13 +25,15 @@ export class HomeComponent implements OnInit {
   env: any = environment;
   location: string;
 
+  public restTypes: Array<string> = ['Public GET', 'Public POST', 'Private GET', 'Private Post'];
+
   constructor(private restService: RestService,
               router: Router) { }
 
   ngOnInit() {
     // Used only for display purposes in the demo to say:
     // "Use Postman to call your endpoint at this URL"
-    // this.location = window.location.origin;
+    this.location = window.location.origin;
   }
 
   publicGet() {
@@ -41,8 +43,12 @@ export class HomeComponent implements OnInit {
     this.restService.publicGet()
       .subscribe ( result => {
         this.publicGetResult = result;
+
+        console.log('success');
       }, error => {
         this.publicGetResult = error;
+
+        console.log('failure');
       });
 
   }
@@ -138,8 +144,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  parseInt( x ) {
-    return parseInt(x);
+  parseInt( x: string ) {
+    return parseInt(x, 10);
   }
 
 }

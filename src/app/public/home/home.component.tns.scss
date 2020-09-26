@@ -3,3 +3,18 @@ Add your NativeScript specific styles here.
 To learn more about styling in NativeScript see:
 https://docs.nativescript.org/angular/ui/styling
 */
+
+Label {
+}
+
+.results-display {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.success {
+  background-color: green;
+}
+.failure {
+  background-color: deeppink;
+}
