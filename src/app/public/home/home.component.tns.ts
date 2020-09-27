@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from '@src/app/services/rest/rest.service';
 import { environment } from '@src/environments/environment';
 import { Router } from '@angular/router';
-import { EventData } from 'tns-core-modules/data/observable';
-import { ListPicker } from 'tns-core-modules/ui/list-picker';
+import { EventData } from '@nativescript/core';
+import { ListPicker } from '@nativescript/core';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { Application } from '@nativescript/core';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,13 @@ import { ListPicker } from 'tns-core-modules/ui/list-picker';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  publicGetResult = {status: 'Click above to try'};
+  publicPostResult = {status: 'Click above to try'};
+  privateGetResult = {status: 'Click above to try'};
+  privatePostResult = {status: 'Click above to try'};
+  permissionedAdminPostResult = {status: 'Click above to try'};
+  permissionedNeverPostResult = {status: 'Click above to try'};
 
   public restResult: any;
   public restStatus: string;
@@ -33,6 +42,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  onDrawerButtonTap(): void {
+    const sideDrawer = Application.getRootView() as RadSideDrawer;
+    sideDrawer.showDrawer();
+  }
+
+  loadAll() {
+    this.publicGet();
+    this.publicPost();
+    this.privateGet();
+    this.privatePost();
+    this.privateRequirePostPermission();
+    this.privateNeverPermissionedPost();
   }
 
   tryAPI() {
@@ -179,7 +202,7 @@ export class HomeComponent implements OnInit {
   }
 
   public onSelectedIndexChanged(args: EventData) {
-    this.selectedRestTypeIndex = (<ListPicker> args.object).selectedIndex;
+    this.selectedRestTypeIndex = (args.object as ListPicker).selectedIndex;
   }
 
 }

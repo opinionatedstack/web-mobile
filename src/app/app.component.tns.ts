@@ -1,45 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StackLayout, Enums } from '@nativescript/core';
+import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
+import { NavigationEnd, Router } from '@angular/router';
+import { RouterExtensions } from '@nativescript/angular';
+import { filter } from 'rxjs/operators';
+import { Application } from '@nativescript/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent {
-  
-  title = 'NativeScript';
-  cnt = 3;
-  private messageLayout: StackLayout;
-  private successLayout: StackLayout;
+export class AppComponent implements OnInit {
 
-  tapMe() {
-    this.cnt--;
-    if (this.cnt === 0) {
-      this.messageLayout
-        .animate({
-          translate: { x: 0, y: 150 },
-          opacity: 0,
-          duration: 400,
-          curve: Enums.AnimationCurve.easeOut,
-        })
-        .then(() => {
-          this.successLayout.translateY = 150;
-          this.successLayout.animate({
-            translate: { x: 0, y: 0 },
-            opacity: 1,
-            duration: 300,
-            curve: Enums.AnimationCurve.easeInOut,
-          });
-        });
-    }
+  private activatedUrl: string;
+  private drawerTransition: DrawerTransitionBase;
+
+  constructor(private router: Router, private routerExtensions: RouterExtensions) {
+    // Use the component constructor to inject services.
   }
 
-  loadedContainer(args) {
-    this.messageLayout = args.object;
+  ngOnInit(): void {
+    this.activatedUrl = '/home';
+    this.drawerTransition = new SlideInOnTopTransition();
+
+    this.router.events
+      .pipe(filter((event: any) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => this.activatedUrl = event.urlAfterRedirects);
   }
 
-  loadedSuccess(args) {
-    this.successLayout = args.object;
+  get sideDrawerTransition(): DrawerTransitionBase {
+    return this.drawerTransition;
   }
-  
+
+  isComponentSelected(url: string): boolean {
+    return this.activatedUrl === url;
+  }
+
+  onNavItemTap(navItemRoute: string): void {
+    this.routerExtensions.navigate([navItemRoute], {
+      transition: {
+        name: 'fade'
+      }
+    });
+
+    const sideDrawer = Application.getRootView() as RadSideDrawer;
+    sideDrawer.closeDrawer();
+  }
 }

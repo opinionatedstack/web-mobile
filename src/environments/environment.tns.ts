@@ -44,7 +44,7 @@ export const environment = {
     }
   },
 
-  restServiceURL: 'https://demo.opinionatedstack.com/rest',
+  restServiceURL: 'https://e1eb24422360.ngrok.io/rest',
   restServiceWhitelistDomain: 'localhost',
 
   snackBarDuration: 2000,

@@ -38,6 +38,7 @@
     "@nativescript/theme": "~2.5.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.2",
+    "nativescript-ui-sidedrawer": "^9.0.3",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
