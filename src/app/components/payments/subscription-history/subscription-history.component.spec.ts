@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubscriptionHistoryComponent } from './subscription-history.component';
 
@@ -6,7 +6,7 @@ describe('SubscriptionHistoryComponent', () => {
   let component: SubscriptionHistoryComponent;
   let fixture: ComponentFixture<SubscriptionHistoryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubscriptionHistoryComponent ]
     })

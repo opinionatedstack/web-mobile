@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PublicRootComponent } from './public-root.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -11,7 +11,7 @@ describe('PublicRootComponent', () => {
   let component: PublicRootComponent;
   let fixture: ComponentFixture<PublicRootComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PublicRootComponent ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

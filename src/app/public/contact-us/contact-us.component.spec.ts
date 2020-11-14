@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ContactUsComponent } from './contact-us.component';
 import { MaterialIoModule } from './../../material-io.module';
@@ -10,7 +10,7 @@ describe('ContactUsComponent', () => {
   let component: ContactUsComponent;
   let fixture: ComponentFixture<ContactUsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ContactUsComponent ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

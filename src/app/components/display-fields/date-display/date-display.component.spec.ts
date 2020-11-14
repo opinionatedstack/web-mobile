@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DateDisplayComponent } from './date-display.component';
 
@@ -6,7 +6,7 @@ describe('DateDisplayComponent', () => {
   let component: DateDisplayComponent;
   let fixture: ComponentFixture<DateDisplayComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DateDisplayComponent ]
     })
