@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { SidenavBroadcastService } from '../../services/sidenav-broadcast/sidenav-broadcast.service';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 

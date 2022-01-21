@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { MatDrawer, MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SidebarMenuComponent } from '../../components/sidebar-menu/sidebar-menu.component';
+import { SidebarMenuComponent } from '../../framework-components/sidebar-menu/sidebar-menu.component';
 import { SidenavBroadcastService } from '../../services/sidenav-broadcast/sidenav-broadcast.service';
 
 @Component({
